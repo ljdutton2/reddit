@@ -30,3 +30,5 @@ require('./controllers/posts.js')(app);
 const port = 3000
 
 app.listen(port, () => console.log(` app listening at http://localhost:${port}`))
+
+module.exports = app;
