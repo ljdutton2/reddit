@@ -16,5 +16,12 @@ module.exports = (app) => {
             var token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
             res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
             res.redirect('/');
-  });
-  }
+        })
+    })
+      // LOGOUT
+    app.get('/logout', (req, res) => {
+        res.clearCookie('nToken');
+        res.redirect('/');
+    });
+
+};
