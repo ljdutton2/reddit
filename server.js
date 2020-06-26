@@ -23,6 +23,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 require('./controllers/posts.js')(app);
+require('./controllers/comments.js')(app);
 
 // NEW
 // app.get('/posts/new', (req, res) => res.render('posts-new'))
