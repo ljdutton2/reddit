@@ -2,16 +2,17 @@ const Post = require('../models/post');
 
 module.exports = (app) => {
   // GET INDEX PAGE
-  app.get('/', (req, res) => {
-    Post.find({}).lean()
+  app.get("/", (req, res) => {
+    var currentUser = req.user;
+  
+    Post.find({})
       .then(posts => {
-        console.log('blablablabla')
-        res.render("posts-index", { posts });
+        res.render("posts-index", { posts, currentUser });
       })
       .catch(err => {
         console.log(err.message);
       });
-  })
+  });
   // GET NEW POST PAGE
   app.get('/posts/new', (req, res) => {
     res.render('posts-new')
@@ -51,5 +52,17 @@ module.exports = (app) => {
         console.log(err);
       });
   });
+  // CREATE
+  app.post("/posts/new", (req, res) => {
+    if (req.user) {
+      var post = new Post(req.body);
+
+      post.save(function(err, post) {
+        return res.redirect(`/`);
+      });
+    } else {
+      return res.status(401); // UNAUTHORIZED
+    }
+});
 
 };
