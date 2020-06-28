@@ -24,12 +24,6 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 // Use handlebars to render
 app.set('view engine', 'handlebars');
 
-
-require('dotenv').config();
-require('./controllers/posts.js')(app);
-require('./controllers/comments.js')(app);
-require('./controllers/auth.js')(app);
-
 var checkAuth = (req, res, next) => {
     console.log("Checking authentication");
     if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
@@ -43,6 +37,13 @@ var checkAuth = (req, res, next) => {
     next();
   };
   app.use(checkAuth);
+
+require('dotenv').config();
+require('./controllers/posts.js')(app);
+require('./controllers/comments.js')(app);
+require('./controllers/auth.js')(app);
+
+
 
 // NEW
 // app.get('/posts/new', (req, res) => res.render('posts-new'))
