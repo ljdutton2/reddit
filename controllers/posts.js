@@ -1,4 +1,3 @@
-  
 const app = require('express');
 const User = require('../models/user');
 const Post = require('../models/post');
